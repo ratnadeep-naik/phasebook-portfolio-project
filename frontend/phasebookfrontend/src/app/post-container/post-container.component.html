@@ -1,0 +1,68 @@
+
+<button class="post-creation-button" *ngIf="!showEditForm" (click)="showEditForm=!showEditForm">create a post</button>
+
+
+
+<form *ngIf="showEditForm" class="signup-form" [formGroup]="postSubmitForm" (ngSubmit)="postFormSubmit(postSubmitForm)">
+
+    <!-- form header -->
+    <div class="form-header">
+      <h1>submit post</h1>
+    </div>
+  
+    <!-- form body -->
+    <div class="form-body">
+  
+      <!-- Firstname and Lastname -->
+      <div class="horizontal-group">
+        <div class="form-group left" >
+            <label class="label-title">Audiance</label>
+            <select class="form-input" id="level" [formControl]="postSubmitForm.controls['audience']">
+              <option name="audience" value="private">private</option>
+              <option name="audience" value="friend">friend</option>
+              <option name="audience" value="public">public</option>
+            </select>
+          </div>  
+  
+           <div class="form-group right" >
+            <label for="choose-file" class="label-title">Upload a video or image</label>
+            <input type="file" id="choose-file" size="80" accept="video/*,image/*" name= "file" (change)="onFileSelect($event)" >
+        </div>
+      </div>
+        <div class="form-group">
+          <label for="choose-file" class="label-title">group info</label>
+          <textarea class="form-input" rows="4" cols="50" style="height:auto" [formControl]="postSubmitForm.controls['textMessage']"></textarea>
+        </div>
+    </div>
+    <!-- form-footer -->
+    <div class="form-footer">
+      <span>* required</span>
+      <button (click)="showEditForm=!showEditForm" class="btn" style="margin:5px;">cancel</button>
+      <button  type="submit" class="btn">submit</button>
+    </div>
+  
+  </form>
+  
+  <p>is own: {{own}}</p>
+  <p>has email: {{email}}</p>
+
+  <div
+  class="search-results" 
+    infinite-scroll 
+    (scrolled)="onScrollDown($event)" 
+    (scrolledUp)="onScrollUp($event)"
+  >
+
+    <app-post *ngFor="let n of myPosts" [myPosts]="n" (deletePost)="deletePost($event)"></app-post>
+
+  </div>
+
+
+<!-- 
+
+<app-post></app-post>
+<app-post></app-post>
+<app-post></app-post>
+<app-post></app-post> 
+-->
+

@@ -1,0 +1,6 @@
+there has to be default image
+error message showing in form
+user elements should be clearly visible
+immidiately after uploading post, audience should be seen inside checkbox
+change in user profile update form (image should be sent differently) and it should not throw error if date is not sent
+fix the error of showing duplicate users or loading twice same data

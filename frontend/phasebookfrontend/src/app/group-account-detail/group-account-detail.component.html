@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+ 
+    
+
+<div class="wrapper" *ngIf="!showEditForm">
+  <div class="left">
+      <img src="http://psychology.iresearchnet.com/wp-content/uploads/2016/01/Group.jpg" alt="user" width="100">
+      <h4>my first group</h4>
+      <h4>ratnadeep chandrashekhar naik</h4>
+      <h4>34 june 2023</h4>
+  </div>
+  <div class="right">
+      <div class="info">
+          <h3>Group Information</h3>
+          <div class="info_data">
+               <div class="data">
+                  <!-- <h4>Email</h4> -->
+                  <p>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit possimus inventore veniam, saepe dicta dignissimos quisquam deleniti neque, molestiae illum ipsam repellendus, nihil eligendi ullam officiis dolores. Nemo mollitia quia a ipsa consectetur, praesentium minus voluptatibus ducimus voluptas repellat, repellendus eaque modi molestiae et ex in itaque veritatis! Assumenda, recusandae! Illum neque quisquam excepturi numquam. Cumque impedit sint labore accusamus corporis magnam, doloribus soluta. Quos eligendi dolor voluptas. Maxime, nostrum. Voluptatem tempora dolorum ea deserunt? Provident fugit delectus dicta modi ratione! Quos numquam eius nobis veritatis, iusto quaerat tempore? Accusantium dolores excepturi soluta debitis nisi vel, provident quisquam maiores ab perspiciatis aperiam sunt amet ipsam magnam aut esse. Necessitatibus autem laborum corporis deleniti consequatur corrupti in itaque accusamus quas aperiam nam, qui quo soluta labore obcaecati alias dicta animi. Nostrum pariatur sed sequi animi, id ipsam aliquam quia reiciendis, tenetur in repellat sint similique est. Inventore atque explicabo suscipit neque cumque vel hic minus exercitationem, odio magni fugit ullam corrupti at commodi non nam quae illum error eum animi! Sequi, dolores mollitia? Quo perferendis optio obcaecati libero deleniti vitae odit, recusandae, in beatae dolorum esse minus reprehenderit enim velit, neque nihil quaerat alias molestias provident vel illo ratione repellendus? Adipisci sit quas perferendis tempora commodi eos officiis, a culpa ipsum obcaecati accusantium corrupti necessitatibus architecto fuga est nobis velit vitae. Debitis, reprehenderit laboriosam? Similique earum corrupti illum aut. Accusamus qui ut quod voluptas nihil id fugit veritatis autem repellat officia. Dignissimos, quibusdam veniam sed ipsam, in accusantium saepe alias vero rerum numquam distinctio aspernatur. Totam earum necessitatibus eaque optio quas similique? Sit ea incidunt odio sint quas optio vel numquam dolorem? Est, quae animi? Atque, nesciunt! Voluptatibus, iusto nobis a nihil alias facilis! Animi debitis vel voluptatibus explicabo tempore saepe, nesciunt magni necessitatibus cupiditate, consectetur adipisci expedita neque earum quibusdam quasi ad facilis ab laboriosam! Quibusdam impedit provident voluptates nulla dolores nemo repudiandae ex ipsam, quos laborum ipsum similique optio neque fugiat laboriosam vel suscipit dignissimos. Pariatur dolorem impedit nobis rerum accusantium sapiente magnam minima vel ullam. Quis fugiat impedit aspernatur. Quis mollitia dolor commodi excepturi tempore sit assumenda tenetur maxime esse. Fugiat nulla, dolore, tempora non quibusdam similique quaerat nostrum, maxime quia hic minus magni voluptatibus dignissimos inventore voluptate dicta sunt fugit ullam? Neque molestias fuga voluptas perspiciatis vero autem nobis similique? Libero incidunt quam voluptas expedita quidem adipisci saepe nostrum, quisquam sequi totam corrupti praesentium alias nihil delectus!    
+                </p>
+               </div>
+               <!-- <div class="data">
+                 <h4>Phone</h4>
+                  <p>0001-213-998761</p>
+            </div> -->
+          </div>
+      </div>
+    
+
+
+      
+      <div class="social_media">
+          <ul>
+            <li><a><i class="fab fa-facebook-f"></i>group members</a></li>
+            <li><a><i class="fab fa-facebook-f"></i>group join requests</a></li>
+            <li><a><i class="fab fa-facebook-f"></i>chat section</a></li>
+            <li *ngIf="!showEditForm" (click)="showEditForm=!showEditForm"><a><i class="fab fa-facebook-f"></i>edit</a></li>
+        </ul>
+    </div>
+  </div>
+</div>
+
+<form *ngIf="showEditForm" class="signup-form" action="/register" method="post">
+
+  <!-- form header -->
+  <div class="form-header">
+    <h1>editt profile</h1>
+  </div>
+
+  <!-- form body -->
+  <div class="form-body">
+
+    <!-- Firstname and Lastname -->
+    <div class="horizontal-group">
+      <div class="form-group left">
+        <label for="firstname" class="label-title">Group Name *</label>
+        <input type="text" id="firstname" class="form-input" placeholder="enter your first name" required="required" />
+      </div>
+
+
+        <div class="form-group right" >
+          <label for="choose-file" class="label-title">Upload Profile Picture</label>
+          <input type="file" id="choose-file" size="80">
+      </div>
+    </div>
+      <div class="form-group">
+        <label for="choose-file" class="label-title">group info</label>
+        <textarea class="form-input" rows="4" cols="50" style="height:auto"></textarea>
+      </div>
+  </div>
+  <!-- form-footer -->
+  <div class="form-footer">
+    <span>* required</span>
+    <button (click)="showEditForm=!showEditForm" class="btn" style="margin:5px;">cancel</button>
+    <button (click)="showEditForm=!showEditForm" type="submit" class="btn">submit</button>
+  </div>
+
+</form>
+
+
+
+
+
+</body>
+</html>

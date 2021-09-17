@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title of the document</title>
+    <style>
+      #boxes {
+        content: "";
+        display: table;
+        clear: both;
+      }
+      div {
+        float: left;
+        height: 100%;
+        width: 15%;
+        padding: 0 25px;
+      }
+      h2 {
+        color: #000000;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <main id="boxes">
+      <!-- <h2>W3docs</h2> -->
+      <div *ngFor="let n of userDetails" >
+        <app-user-list-element [userDetail]="n"></app-user-list-element>
+    </div>
+      <!-- <div >
+        <app-user-list-element></app-user-list-element>
+      </div>
+      <div >
+        <app-user-list-element></app-user-list-element>
+      </div>
+      <div >
+        <app-user-list-element></app-user-list-element>
+      </div>
+      <div >
+        <app-user-list-element></app-user-list-element>
+      </div>
+      <div >
+        <app-user-list-element></app-user-list-element>
+      </div>
+      <div >
+        <app-user-list-element></app-user-list-element>
+      </div>
+      <div >
+        <app-user-list-element></app-user-list-element>
+      </div>
+      <div >
+        <app-user-list-element></app-user-list-element>
+      </div>
+      <div >
+        <app-user-list-element></app-user-list-element>
+      </div>
+      <div >
+        <app-user-list-element></app-user-list-element>
+      </div>
+      <div >
+        <app-user-list-element></app-user-list-element>
+      </div> -->
+    </main>
+
+    
+
+</body>
+</html>

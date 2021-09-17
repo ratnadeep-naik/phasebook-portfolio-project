@@ -1,0 +1,38 @@
+    <div class="navbar">
+        <a  [routerLink]="['/']" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:true}">profile</a>
+  <div class="dropdown">
+    <button class="dropbtn">friend section 
+      <!-- <i class="fa fa-caret-down"></i> -->
+    </button>
+    <div class="dropdown-content">
+      <a [routerLink]="['/friends']" routerLinkActive="active-link">friends</a>
+      <a [routerLink]="['/friendRequestsSent']" routerLinkActive="active-link">friend requests sent</a>
+      <a [routerLink]="['/friendRequestsRecevied']" routerLinkActive="active-link">friend request received</a>
+    </div>
+</div>
+
+  <!-- <div class="dropdown">
+    <button class="dropbtn">group section 
+    </button>
+    <div class="dropdown-content">
+      <a [routerLink]="['/userCreatedGroups']" routerLinkActive="active-link">user created groups</a>
+      <a [routerLink]="['/userJoinedGroups']" routerLinkActive="active-link">user joined groups</a>
+      <a [routerLink]="['/groupJoinRequestsSent']" routerLinkActive="active-link">group joined request sent</a>
+      <a [routerLink]="['/groupJoinRequestsReceived/user/dsds']" routerLinkActive="active-link">group joined request received</a>
+      <input type="text" placeholder="find group">
+    </div>
+  </div>  -->
+  
+  <a [routerLink]="['/timeline']" routerLinkActive="active-link">timeline</a>
+  <a [routerLink]="['/friendChats']" routerLinkActive="active-link">chats <span *ngIf="webSocketAPIService.userAndChatDetail.length!=0" class="mycustomspan">{{webSocketAPIService.userAndChatDetail.length}}+</span></a>
+  <a [routerLink]="['/']" (click)="logout()">log out</a>
+  <!-- <a [routerLink]="['/userProfile/user111@gmail.com']" routerLinkActive="active-link">user 111 profile</a> -->
+<input type="text" 
+placeholder="find people"
+#box (keyup.enter)="peopleSubmit(box.value)">
+
+</div>
+
+<br>
+<br>
+

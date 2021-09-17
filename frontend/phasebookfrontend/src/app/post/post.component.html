@@ -1,0 +1,161 @@
+<!-- https://github.com/clumes/facebook-post -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mark Zuckerberg | Facebook</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <!-- POST HEADER -->
+        <div class="post__header header">
+          <!-- header left -->
+          <div class="header__left">
+            <a href="#">
+              <!-- <img src="https://github.com/clumes/facebook-post/blob/master/images/post-pic.jpg?raw=true" class="post__author-pic" /> -->
+              <!-- <img *ngIf="myPosts.creatorImageUrl!=null"   [src]="'http://localhost:8080/client/image/'+myPosts.creatorImageUrl" class="post__author-pic" /> -->
+               
+            </a>
+            <div class="post__author author">
+              <span class="author__name">
+                <a [routerLink]="'/userProfile/'+myPosts.creatorEmail">{{myPosts.creatorName}}</a>
+              </span>
+              <!-- <i class="author__verified"></i> -->
+            </div>
+            <span class="post__date">
+              <a>{{myPosts.creationDate}}</a>
+              <span class="post__date-privacy-separator">&nbsp;·</span>
+              <span>{{myPosts.audience}}</span>
+              <span class="post__date-privacy-separator">&nbsp;·</span>
+              <select id="cars"  *ngIf="myPosts.own" [ngModel]="myPosts.audience" (ngModelChange)="updateAudience($event)">
+                <option value="PUBLIC">PUBLIC</option>
+                <option value="FRIEND">FRIEND</option>
+                <option value="PRIVATE">PRIVATE</option>
+              </select>
+  
+            </span>
+            <!-- <span class="post__date-privacy-separator">&nbsp;·</span> -->
+            <!-- <i class="post__privacy"></i> -->
+
+          </div>
+          <!-- Header right -->
+          <div class="header__right">
+            <div class="post__options options">
+              <!-- <i class="options__icon"></i> -->
+              <button *ngIf="myPosts.own" (click)="delete(myPosts.postId)">delete</button>
+            </div>
+          </div>
+        </div>
+        <!-- POST CONTENT -->
+        <div class="post__content content">
+          <p class="content__paragraph">
+            {{myPosts.textMessage}}
+          </p>
+          <img  *ngIf="showImage"   [src]="httpClientService.ROOT_URI+'/client/image/'+myPosts.imageUrl" class="content__image" />
+          <video  *ngIf="showVideo"  [src]="httpClientService.ROOT_URI+'/client/video/'+myPosts.videoUrl" class="content__image" controls>
+     <p>Your browser does not support HTML5 video. link to the video instead.</p>
+          </video>
+
+        </div>
+        <!-- POST FOOTER -->
+        <div class="post__footer footer">
+          <!-- Reactions -->
+          <div class="footer__reactions reactions">
+
+            <div class="reactions__emojis emojis">
+              <img src="https://raw.githubusercontent.com/clumes/facebook-post/15b15ff3885d8b884b4064ac841e996f646ce662/images/like.svg" class="emojis__like" />
+              <span class="emojis__count">
+                <a href="#">{{myPosts.likes}}</a>
+              </span>
+            </div>
+
+            <div class="reactions__emojis emojis">
+              <img src="https://uxwing.com/wp-content/themes/uxwing/download/44-hand-gestures/dislike-button.svg" class="emojis__like" />
+              <span class="emojis__count">
+                <a href="#">{{myPosts.disLikes}}</a>
+              </span>
+            </div>
+
+            <div class="reactions__comment-shares">
+              <span class="comment-shares__comments"
+                ><a href="#">{{myPosts.comments}} Comments</a></span>
+            </div>
+          </div>
+          <!-- Buttons -->
+          <div class="footer__buttons buttons">
+
+            <span class="buttons__like like">
+              <img [src]="myPosts.liked ? 'https://www.svgrepo.com/show/231048/like.svg' : 'https://www.svgrepo.com/show/13661/like.svg'" class="emojis__like" (click)="changeLikeStatus()"/>
+              Like
+            </span>
+
+            <span class="buttons__like like">
+              <img [src]="myPosts.disLiked ? 'https://www.svgrepo.com/show/334615/dislike.svg' : 'https://www.svgrepo.com/show/140237/dislike-thumb.svg'" class="emojis__like" (click)="changeDisLikeStatus()"/>
+              disLike
+            </span>
+            
+            <span class="buttons__comment comment" (click)="openOrCloseComments()">
+              <!-- <span class="buttons__comment comment" (click)="showComments=!showComments"> -->
+                <img [src]="myPosts.commented ? 'https://www.svgrepo.com/show/335050/comment.svg' : 'https://www.svgrepo.com/show/309459/comment.svg'" class="emojis__like" />
+              Comment
+            </span>
+          </div>
+          <!-- Comments -->
+          <div class="footer__comments comments" *ngIf="showComments">
+            <!-- Comments box -->
+            <div class="comments__box box">
+              <div class="box__profile profile">
+                <img src="https://github.com/clumes/facebook-post/blob/master/images/profile-pic.jpg?raw=true" class="profile__pic" />
+              </div>
+              <div class="box__bar bar">
+                <input
+                  type="text"
+                  placeholder="Write a comment..."
+                  class="bar__input"
+                  #box (keyup.enter)="commentSubmit(box.value)"
+                />
+
+              </div>
+
+            </div>
+            <!-- Friend comment --> 
+            
+            <div *ngFor="let n of comments" class="comments__friend-comment friend-comment">
+              
+              <img [src]="httpClientService.ROOT_URI+'/client/image/'+n.creatorImageUrl" class="friend-comment__pic" />
+              <div class="friend-comment__comment comment">
+                <a [routerLink]="'/userProfile/'+n.creatorEmail" class="comment__author">{{n.creatorName}} {{n.creationDate}}</a>
+                <span class="comment__content">
+                  {{n.content}}
+                </span>
+              </div>
+            </div>
+            <!-- <div class="comments__friend-comment friend-comment">
+              <img src="https://github.com/clumes/facebook-post/blob/master/images/friend-pic.jpg?raw=true" class="friend-comment__pic" />
+              <div class="friend-comment__comment comment">
+                <a href="#" class="comment__author">Justin Miller</a>
+                <span class="comment__content">
+                  It sure feels different to see you on a different color
+                  T-shirt, but still, technology advances everytime and we are
+                  glad that you're a part of it.
+                </span>
+              </div>
+            </div> -->
+
+            <!-- More comments -->
+            <div class="comments__more-comments more-comments">
+              <span class="more-comments__link">
+                <a (click)="showCommentsByPageNumber()">View more comments</a>
+                <!-- <a>close</a> -->
+              </span>
+              <!-- <span class="more-comments__count">1 of 42,098</span> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

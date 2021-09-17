@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Chat App</title>
+        <!-- <link rel="stylesheet" type="text/css" media="screen" href="css/chat.css" /> -->
+    </head>
+    <body>
+        <div id="chat-container">
+            <!-- left part -->
+
+            <div id="search-container">
+                <input type="text" placeholder="Search" />
+            </div>
+            <!-- search-container end -->
+
+            <div id="conversation-list">
+                <!-- <div class="conversation">
+                    <img src="https://github.com/Sandro2702/chat-ui-css-grid/blob/master/images/profiles/daryl.png?raw=true" alt="Daryl" />
+                    <div class="title-text">
+                        Fred Batz
+                    </div>
+                    <div class="created-date">
+                        Apr 19
+                    </div>
+                    <div class="conversation-message">
+                        Odit iusto eum.
+                    </div>
+                </div> -->
+                
+                <div *ngFor="let n of friendDetails"  class="conversation"  [routerLink]="'/friendChats/'+n.email" routerLinkActive="active-link">
+                    <img [src]="httpClientService.ROOT_URI+'/client/image/'+n.photoUrl" loading="lazy" alt="Kim O'Neil" />
+                    <div class="title-text">{{n.firstName}} {{n.lastName}} </div>
+                    <div *ngIf="n.unread!=0" class="created-date">{{n.unread}}+</div>
+                    <!-- <div class="conversation-message">
+                        Molestiae magnam optio est ut hic saepe.
+                    </div> -->
+                </div>
+
+            </div>
+            <!-- !conversation-list end -->
+
+            <div id="new-message-container">
+                <!-- <a href="#">+</a> -->
+            </div>
+            <!-- new-message-container end -->
+
+            <!-- right part -->
+
+            <div *ngIf="showChatSection" id="chat-title">
+                <span>{{currentFriendDetails.firstName}} {{currentFriendDetails.lastName}}</span>
+                <button (click)="loadChats()">load more</button>
+                <!-- <img src="https://raw.githubusercontent.com/Sandro2702/chat-ui-css-grid/c5b7223d6a7d081dd5a5980125d6ecbe21499366/images/icons/trash-logo.svg" alt="Delete conversation" /> -->
+            </div>
+            <!-- chat-title end -->
+
+
+
+
+
+
+
+            <div 
+            *ngIf="showChatSection" 
+            id="chat-message-list" 
+            >
+
+                <div *ngFor="let n of chatsByFriend" >
+                    <!-- <div class="message-row you-message"> -->
+                    <div class="message-row"   [ngClass]="n.own ? 'you-message' : 'other-message'">
+                        <div class="message-content">
+                            
+                            <img [src]="httpClientService.ROOT_URI+'/client/image/'+n.photoUrl"  class="senderimage" alt="Ben" />
+
+                            <div *ngFor="let m of n.contentType;  let i = index">
+
+                                <div *ngIf="m=='TEXT'" class="message-text">
+                                    {{n.content[i]}}
+                                </div >
+        
+                                <div *ngIf="m=='VIDEO'" class="message-text">
+                                    
+                                        <!-- <video  [src]="http://localhost:8080/client/video/{{n.content[i]}}" class="content__image" controls> -->
+                                            <video  [src]="httpClientService.ROOT_URI+'/client/video/'+n.content[i]" class="content__image" controls>
+                                        <p>Your browser does not support HTML5 video. Here is a link to the video instead.</p>
+                                    </video>
+                                </div>
+                                         
+                                <div *ngIf="m=='IMAGE'" class="message-text">
+                                    <img [src]="httpClientService.ROOT_URI+'/client/image/'+n.content[i]" alt="">
+                                </div>
+
+                            </div>
+
+                            <div class="message-time">
+                                {{n.timeStamp}}
+                                <div *ngIf="n.status==1">sent</div>
+                                <div *ngIf="n.status==2">received</div>
+                                <div *ngIf="n.status==3">read</div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    
+                </div>
+
+
+
+            </div>
+
+
+
+<!-- 
+            <div *ngIf="showChatSection" id="chat-message-list">
+                <div class="message-row you-message">
+                    <div class="message-content">
+                        <div class="message-text">
+                            1 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Praesentium fugiat id numquam modi
+                            delectus repellat vitae, veniam impedit nisi debitis assumenda non, eum doloremque eligendi,
+                            obcaecati facilis error repellendus consectetur necessitatibus quas officiis laboriosam
+                            perspiciatis? Nam facere repellendus distinctio nihil.
+                        </div>
+                        <div class="message-time">
+                            Apr 19
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message-row other-message">
+                    <div class="message-content">
+                        <img src="https://github.com/Sandro2702/chat-ui-css-grid/blob/master/images/profiles/ben.png?raw=true" alt="Ben" />
+                        <div class="message-text">
+                            2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, fugiat veniam, doloremque
+                            adipisci assumenda, nisi distinctio quibusdam a recusandae sint ratione sunt? Nemo quam enim
+                            architecto quas, repudiandae quo consequatur!
+                        </div>
+                        <div class="message-time">
+                            Apr 19
+                        </div>
+                    </div>
+                </div>
+                <div class="message-row you-message">
+                    <div class="message-content">
+                        <div class="message-text">
+                            3 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia illo eligendi doloribus
+                            suscipit consectetur ex?
+                        </div>
+                        <div class="message-time">Apr 15</div>
+                    </div>
+                </div>
+                <div class="message-row other-message">
+                    <div class="message-content">
+                        <img src="https://github.com/Sandro2702/chat-ui-css-grid/blob/master/images/profiles/ben.png?raw=true" alt="Ben" />
+                        <div class="message-text">
+                            4 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia illo eligendi doloribus
+                            suscipit consectetur ex?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia
+                            illo eligendi doloribus suscipit consectetur ex?
+                        </div>
+                        <div class="message-time">Apr 16</div>
+                    </div>
+                </div>
+                <div class="message-row you-message">
+                    <div class="message-content">
+                        <div class="message-text">
+                            5 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia illo eligendi doloribus
+                            suscipit consectetur ex?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia
+                            illo eligendi doloribus suscipit consectetur ex?
+                        </div>
+                        <div class="message-time">Apr 15</div>
+                    </div>
+                </div>
+                <div class="message-row other-message">
+                    <div class="message-content">
+                        <img src="https://github.com/Sandro2702/chat-ui-css-grid/blob/master/images/profiles/ben.png?raw=true" alt="Ben" />
+                        <div class="message-text">
+                            6 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia illo eligendi doloribus
+                            suscipit consectetur ex?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia
+                            illo eligendi doloribus suscipit consectetur ex?
+                        </div>
+                        <div class="message-time">Apr 14</div>
+                    </div>
+                </div>
+                <div class="message-row you-message">
+                    <div class="message-content">
+                        <div class="message-text">
+                            7 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia illo eligendi doloribus
+                            suscipit consectetur ex?
+                        </div>
+                        <div class="message-time">Apr 13</div>
+                    </div>
+                </div>
+                <div class="message-row other-message">
+                    <div class="message-content">
+                      <img src="https://github.com/Sandro2702/chat-ui-css-grid/blob/master/images/profiles/ben.png?raw=true" alt="Ben" />
+                        <div class="message-text">
+                            8 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia illo eligendi doloribus
+                            suscipit consectetur ex?
+                        </div>
+                        <div class="message-time">Aprsss 13 dfds sfsf sfdsf </div>
+                    </div>
+                </div>
+                <div class="message-row you-message">
+                    <div class="message-content">
+                        <img src="https://github.com/Sandro2702/chat-ui-css-grid/blob/master/images/profiles/ben.png?raw=true" alt="Ben" />
+
+                        <div class="message-text">
+                            9 Loremratnadeep dolor sit amet, consectetur adipisicing elit. Officia illo eligendi doloribus
+                            suscipit consectetur ex?
+                        </div>
+                        <div class="message-time">Apr 13</div>
+                    </div>
+                </div>
+
+                <div class="message-row you-message">
+                  <div class="message-content">
+                      <div class="message-text">
+
+                        <video  [src]="'http://localhost:8080/client/video/05ab9d82-9b1e-433b-b200-885a95379d06'" class="content__image" controls>
+                                <p>Your browser does not support HTML5 video. Here is a <a href="http://localhost:7080/videos/2/3">link to the video</a> instead.</p>
+                            </video>
+                           
+                      </div>
+                      <div class="message-time">Apr 13</div>
+                  </div>
+              </div>
+
+              <div class="message-row you-message">
+                <div class="message-content">
+                    <div class="message-text">
+                        <img src="https://images6.alphacoders.com/337/thumb-1920-337420.jpg" alt="">
+                    </div>
+                    <div class="message-time">Apr 13</div>
+                </div>
+            </div>
+
+        </div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- chat-message-list end -->
+<form [formGroup]="chatForm" (ngSubmit)="chatFormSubmit(chatForm)">
+    <div *ngIf="showChatSection" id="chat-form">
+        <!-- <img src="https://raw.githubusercontent.com/Sandro2702/chat-ui-css-grid/c5b7223d6a7d081dd5a5980125d6ecbe21499366/images/icons/attachment-logo.svg" alt="attachment-logo" /> -->
+        <input #fileInput type="file" id="choose-file" accept="video/*,image/*" name= "file" (change)="onFileSelect($event)">
+        <input type="text" placeholder="type a message" [formControl]="chatForm.controls['content']"/>
+        <button>submit</button>
+    </div>
+
+</form>
+            <!-- chat-form end -->
+        </div>
+    </body>
+</html>

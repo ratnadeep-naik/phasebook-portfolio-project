@@ -1,0 +1,16 @@
+<p>user-account-container works!</p>
+
+
+<app-user-account-detail *ngIf="authGuardService.isLoggedIn" [email]="userEmail"></app-user-account-detail>
+
+<app-post-container *ngIf="authGuardService.isLoggedIn" [email]="email1" [own]="own1" ></app-post-container>
+
+<app-login *ngIf="!authGuardService.isLoggedIn"></app-login>
+
+
+
+
+<!-- <app-post></app-post>
+<app-post></app-post>
+<app-post></app-post>
+<app-post></app-post> -->

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="login">
+      <!-- <h2 class="active" (click)="login==true"> login </h2> -->
+
+      <h2 [ngClass]="{'active': login === true, 'nonactive' : login === false }" (click)="login=true"> login </h2>
+      <h2 [ngClass]="{'active': login === false, 'nonactive' : login === true }" (click)="login=false"> register </h2>
+
+      <form *ngIf="login" [formGroup]="loginForm" (ngSubmit)="loginFormSubmit(loginForm.value)">
+        <input type="text" class="text" [formControl]="loginForm.controls['email']">
+         <span>email</span>
+        <br>
+        <br>
+        <input [type]="show ? 'text' : 'password'" class="text" [formControl]="loginForm.controls['password']">
+        <span>password</span>
+        <br>
+        <input type="checkbox" id="checkbox-1-1" class="custom-checkbox" (click)="toggleShow()" [checked]="show? true : false"/>
+        <label for="checkbox-1-1" >show password</label>
+        <button class="signin" type="submit">
+          log in
+        </button>
+
+        <!-- <hr> -->
+        <!-- <a href="#">Forgot Password?</a> -->
+      </form>
+
+
+      <form *ngIf="!login" [formGroup]="signupForm" (ngSubmit)="signupFormSubmit(signupForm.value)">
+        <input type="text" class="text"  [formControl]="signupForm.controls['firstName']">
+         <span>first name</span>
+        <br>
+        <br>
+        <input type="text" class="text" [formControl]="signupForm.controls['lastName']" >
+         <span>last name</span>
+        <br>
+        <br>
+        <input type="text" class="text" [formControl]="signupForm.controls['email']">
+         <span>email</span>
+        <br>
+        <br>
+        <input [type]="show ? 'text' : 'password'" class="text" [formControl]="signupForm.controls['password']">>
+        <span>password</span>
+        <br>
+        <input type="checkbox" id="checkbox-1-1" class="custom-checkbox" (click)="toggleShow()" [checked]="show? true : false"/>
+        <label for="checkbox-1-1">show password</label>
+        <button class="signin" type="submit">
+          register
+        </button>
+      </form>
+    </div>
+  </body>
+</html>

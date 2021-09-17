@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title of the document</title>
+    <style>
+      #boxes {
+        content: "";
+        display: table;
+        clear: both;
+      }
+      main div {
+        float: left;
+        height: 100%;
+        width: 15%;
+        padding: 0 25px;
+      }
+      h2 {
+        color: #000000;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+
+    <button *ngIf="!showEditForm" (click)="showEditForm=!showEditForm">create a group</button>
+    <form *ngIf="showEditForm" class="signup-form" action="/register" method="post">
+
+      <!-- form header -->
+      <div class="form-header">
+        <h1>editt profile</h1>
+      </div>
+    
+      <!-- form body -->
+      <div class="form-body">
+    
+        <!-- Firstname and Lastname -->
+        <div class="horizontal-group">
+          <div class="form-group left">
+            <label for="firstname" class="label-title">Group Name *</label>
+            <input type="text" id="firstname" class="form-input" placeholder="enter your first name" required="required" />
+          </div>
+
+
+            <div class="form-group right" >
+              <label for="choose-file" class="label-title">Upload Profile Picture</label>
+              <input type="file" id="choose-file" size="80">
+          </div>
+        </div>
+          <div class="form-group">
+            <label for="choose-file" class="label-title">group info</label>
+            <textarea class="form-input" rows="4" cols="50" style="height:auto"></textarea>
+          </div>
+      </div>
+      <!-- form-footer -->
+      <div class="form-footer">
+        <span>* required</span>
+        <button (click)="showEditForm=!showEditForm" class="btn" style="margin:5px;">cancel</button>
+        <button (click)="showEditForm=!showEditForm" type="submit" class="btn">submit</button>
+      </div>
+    
+    </form>
+    
+    
+    <main id="boxes">
+
+      
+      <div>
+        <app-group-list-element></app-group-list-element>  
+      </div>
+      <div>
+        <app-group-list-element></app-group-list-element>  
+      </div>
+      <div>
+        <app-group-list-element></app-group-list-element>  
+      </div>
+      <div>
+        <app-group-list-element></app-group-list-element>  
+      </div>
+      <div>
+        <app-group-list-element></app-group-list-element>  
+      </div>
+
+      
+    </main>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,171 @@
+<div class="wrapper" *ngIf="!showEditForm">
+    <div class="left">
+      <!-- src="http://localhost:8080/client/image/{{n.creatorImageUrl}}" -->
+        <!-- <img src="https://i.imgur.com/cMy8V5j.png" alt="user" width="100"> -->
+        
+        <img [src]="httpClientService.ROOT_URI+'/client/image/'+userDetail?.photoUrl" alt="user" width="100">
+        <h4>{{userDetail?.firstName}} {{userDetail?.lastName}} {{userDetail?.lastAppearance}}</h4>
+        <h4>{{userDetail?.gender}}</h4>
+        <h4>{{userDetail?.dob}}</h4>
+        <h4>{{userDetail?.email}}</h4>
+        <h4>{{userDetail?.phone}}</h4>
+         <p>{{userDetail?.address}}</p>
+    </div>
+    <div class="right">
+        <div class="info">
+            <h3>Personal Information</h3>
+            <div class="info_data">
+                 <div class="data">
+                    <!-- <h4>Email</h4> -->
+                    <p>{{userDetail?.personalInfo}} </p>
+                 </div>
+                 <!-- <div class="data">
+                   <h4>Phone</h4>
+                    <p>0001-213-998761</p>
+              </div> -->
+            </div>
+        </div>
+      
+      <div class="projects">
+            <h3>job Information</h3>
+            <div class="projects_data">
+                 <div class="data">
+                    <!-- <h4>Recent</h4> -->
+                    <p>{{userDetail?.jobInfo}}</p>
+                 </div>
+                 <!-- <div class="data">
+                   <h4>Most Viewed</h4>
+                    <p>dolor sit amet.</p>
+              </div> -->
+            </div>
+        </div>
+        <div class="projects">
+          <h3>academic information</h3>
+          <div class="projects_data" >
+               <div class="data">
+                  <!-- <h4>Recent</h4> -->
+                  <p>
+                    {{userDetail?.academicInfo}}
+                  </p>
+               </div>
+          </div>
+      </div>
+    
+        <div class="social_media">
+            <ul>
+              <li *ngIf="userDetail.own" (click)="showEditForm=!showEditForm"><a><i class="fab fa-facebook-f"></i>edit account</a></li>
+              <li *ngIf="userDetail.own"(click)="deleteAccount()"><a><i class="fab fa-facebook-f"></i>delete account</a></li>
+              <li *ngIf="userDetail.friend"><a><i class="fab fa-facebook-f"></i>chat</a></li>
+              <li *ngIf="userDetail.friend"><a><i class="fab fa-facebook-f"></i>unfriend</a></li>
+              <li *ngIf="userDetail.friendRequestSentToThisUser"><a><i class="fab fa-facebook-f"></i>cancel sent friend request</a></li>
+              <li *ngIf="userDetail.friendRequestSentByThisUser"><a><i class="fab fa-facebook-f"></i>accept friend request</a></li>
+              <li *ngIf="!userDetail.own && !userDetail.friend && !userDetail.friendRequestSentToThisUser && !userDetail.friendRequestSentByThisUser"><a><i class="fab fa-facebook-f"></i>send friend request</a></li>
+          </ul>
+      </div>
+    </div>
+</div>
+
+<form *ngIf="showEditForm" class="signup-form"[formGroup]="profileUpdateForm" (ngSubmit)="updateUserProfile(profileUpdateForm)">
+
+  <!-- form header -->
+  <div class="form-header">
+    <h1>editt profile</h1>
+  </div>
+
+  <!-- form body -->
+  <div class="form-body">
+
+    <!-- Firstname and Lastname -->
+    <div class="horizontal-group">
+      <div class="form-group left">
+        <label for="firstname" class="label-title">First name *</label>
+        <input type="text" id="firstname" class="form-input" placeholder="enter your first name" required="required" [formControl]="profileUpdateForm.controls['firstName']"/>
+      </div>
+      <div class="form-group right">
+        <label for="lastname" class="label-title">Last name</label>
+        <input type="text" id="lastname" class="form-input" placeholder="enter your last name"  [formControl]="profileUpdateForm.controls['lastName']"/>
+      </div>
+    </div>
+
+    <!-- Email -->
+
+    <div class="horizontal-group">
+        <div class="form-group left">
+            <label for="email" class="label-title">Email*</label>
+            <input type="email" id="email" class="form-input" placeholder="enter your email" required="required"  [formControl]="profileUpdateForm.controls['email']"/>
+        </div>
+        <div class="form-group right">
+          <label for="phone" class="label-title">phone number</label>
+          <input type="text" id="phone" class="form-input" placeholder="enter your phone number"  [formControl]="profileUpdateForm.controls['phone']"/>
+        </div>
+      </div>
+
+      
+    <!-- <div class="form-group">
+      <label for="email" class="label-title">Email*</label>
+      <input type="email" id="email" class="form-input" placeholder="enter your email" required="required">
+    </div> -->
+
+    <!-- Passwrod and confirm password -->
+    <div class="horizontal-group">
+      <div class="form-group left">
+        <label for="password" class="label-title">Password *</label>
+        <input type="password" id="password" class="form-input" placeholder="enter your password" required="required" [formControl]="profileUpdateForm.controls['password']">
+      </div>
+      <div class="form-group right">
+        <label for="confirm-password" class="label-title">Confirm Password *</label>
+        <input type="password" class="form-input" id="confirm-password" placeholder="enter your password again" required="required">
+      </div>
+    </div>
+
+    <!-- Gender and Hobbies -->
+    <div class="horizontal-group">
+        <div class="form-group left">
+          <label class="label-title">Gender:</label>
+          <div class="input-group">
+            <label for="male"><input type="radio" name="gender" value="male" id="male" [formControl]="profileUpdateForm.controls['gender']"> Male</label>
+            <label for="female"><input type="radio" name="gender" value="female" id="female" [formControl]="profileUpdateForm.controls['gender']"> Female</label>
+          </div>
+        </div>
+        <div class="form-group right">
+            <label for="confirm-password" class="label-title">DOB *</label>
+            <input type="date" class="form-input" id="birthdate" placeholder="enter your birth date" required="required" [formControl]="profileUpdateForm.controls['dob']">
+          </div>
+
+      </div>
+
+      <!-- Profile picture and Age -->
+    <div class="horizontal-group">
+      <div class="form-group left" >
+        <label for="choose-file" class="label-title">Upload Profile Picture</label>
+        <input type="file" id="choose-file" size="80" accept="image/*" (change)="onFileSelect($event)">
+      </div>
+    </div>
+
+     <!-- Bio -->
+     <div class="form-group">
+        <label for="choose-file" class="label-title">address</label>
+        <textarea class="form-input" rows="4" cols="50" style="height:auto" [formControl]="profileUpdateForm.controls['address']"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="choose-file" class="label-title">personal info</label>
+        <textarea class="form-input" rows="4" cols="50" style="height:auto" [formControl]="profileUpdateForm.controls['personalInfo']"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="choose-file" class="label-title">academic info</label>
+        <textarea class="form-input" rows="4" cols="50" style="height:auto" [formControl]="profileUpdateForm.controls['academicInfo']"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="choose-file" class="label-title">job info</label>
+        <textarea class="form-input" rows="4" cols="50" style="height:auto" [formControl]="profileUpdateForm.controls['jobInfo']"></textarea>
+      </div>
+  </div>
+  <!-- form-footer -->
+  <div class="form-footer">
+    <span>* required</span>
+    <button (click)="showEditForm=!showEditForm" class="btn" style="margin:5px;">cancel</button>
+    <button type="submit" class="btn">submit</button>
+  </div>
+
+</form>

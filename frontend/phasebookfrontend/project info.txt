@@ -1,0 +1,219 @@
+<!-- https://github.com/softauthor/HTMLCSS/blob/master/Registration%20Form/Final/style.css -->
+remaining:
+showing error messages in form
+pagination
+websocket
+serving videos
+
+
+
+
+/                               for sign in or currently logged in users user profile
+/userProfile/{user email}
+/findUsers/{keyword}
+/friends
+/showfriendRequestsSent
+/showfriendRequestsRecevied
+/friendChats/{friendId}
+/findGroups/{keyword}
+/groupProfile/{groupId}
+/showGroupJoinRequestsSent
+/showGroupJoinRequestsReceived
+/userCreatedGroups
+/userJoinedGroups
+/groupChats/{groupId}
+/groupMembers/{groupId}
+/timline
+
+
+
+
+userAccountContainer
+	userAccountDetail
+	postContainer
+        post
+	userListContainer
+        user friends (userListElement)
+	userListContainer
+        user friend request sent (userListElement)
+	userListContainer
+        user friends request received (userListElement)
+	userListContainer
+        group joined request received (userListElement)
+    groupListContainer
+	    user created groups (groupListElement)
+    groupListContainer
+	    user joined groups (groupListElement)
+    groupListContainer
+	    user group join request sent (groupListElement)
+
+groupAccountContainer
+	groupAccountDetail
+    userListContainer
+	    group members (userListElement)
+	userListContainer
+        group joined request received (userListElement)
+
+possible components which are needed:
+AppComponent
+NavbarComponent
+LoginComponent
+postContainer
+post
+userAccountContainer
+userAccountDetail
+userListContainer
+userListElement
+groupAccountContainer
+groupAccountDetail
+groupListContainer
+groupListElement
+userChatContainer
+groupChatContainer
+
+where to use form:
+for signin
+for login
+for updating user account info
+for creating group
+for updating group info
+for creating post
+chat form
+
+for updating user account info:
+	firstName
+	lastName
+	email
+	phone
+	password
+	gender
+	dob	
+	photoUrl
+	address
+	personalInfo
+	academicInfo
+	jobInfo
+	
+for creating group:
+	groupName
+	groupDescription	
+	groupImageUrl
+	
+for updating group info:
+	groupName
+	groupDescription	
+	groupImageUrl
+
+for creating post:
+	imageUrl / videoUrl
+    audience		//personal, public, friend
+    textMessage
+
+
+
+
+enable clientside pagination for users, groups, posts, chats, comments
+authenticate routes
+specify component communication related scheme:
+    UserAccountContainerComponent,
+    UserAccountDetailComponent,
+    PostContainerComponent,
+    PostComponent,
+    UserListContainerComponent,
+    UserListElementComponent,
+    UserChatContainerComponent,
+    GroupAccountContainerComponent,
+    GroupAccountDetailComponent,
+    GroupListContainerComponent,
+    GroupListElementComponent,
+    GroupChatContainerComponent,
+
+URLs:
+
+signup																	''
+login																	'' 
+logout																	'' 
+
+read other user account													'userProfile/:email' 
+read user own account													'' 
+update user own account													''
+delete user own account													''
+
+read timeline post														'timline' 
+read other  user post													'userProfile/:email' 
+read own post															'' 
+write own post															''
+delete own post															''
+update own post audience												''
+
+write own comment on a post
+update own comment on a post
+delete own comment on a post
+read comments on a post
+
+like on dislike or non touched post
+dislike on like or non touched post
+non touched on liked or disliked post
+
+read desired list of users												'findUsers/:keyword' 
+send friend request
+read friend requests sent												'friendRequestsSent' 
+cancel sent friend request												'friendRequestsSent'
+read friend requests received											'friendRequestsRecevied' 
+accept friend request													'friendRequestsRecevied'
+read friends															'friends' 
+make friend unfriend
+
+read user and user friend chat											'friendChats/:friendId' 
+create user and user friend chat										'friendChats/:friendId' 
+delete user chat from user and user friend chat							'friendChats/:friendId' 
+
+read own group															'groupProfile/:groupId' 
+create own group														'userCreatedGroups'
+update own group														'groupProfile/:groupId' 
+delete own group														'groupProfile/:groupId' 
+read own groups															'userCreatedGroups' 
+read user joined groups													'userJoinedGroups' 
+read interested groups													'findGroups/:keyword' 
+send group join request
+read sent group join requests											'groupJoinRequestsSent' 
+delete sent group join requests											'groupJoinRequestsSent'
+read received group join requests by own group							'groupJoinRequestsReceived/:groupId' 
+read received group join requests by own user							'groupJoinRequestsReceived/user/:email' 
+accept group join requests
+read group members														'groupMembers/:groupId' 
+
+reading chats in an user created or user joined group					'groupChats/:groupId' 
+creating chats in an user created or user joined group					'groupChats/:groupId' 
+deleting own chats in an user created or user joined group				'groupChats/:groupId' 
+
+
+
+
+PostContainerComponent
+	post of own user
+	post of other users
+	post in timeline
+UserAccountDetailComponent
+	own
+	others
+GroupAccountDetailComponent
+	groups
+UserListContainerComponent
+	interested users
+	friends
+	users to whom friend request sent
+	users from whom friend request received
+	group members
+	group join request by group
+	group join request by user
+GroupListContainerComponent
+	interested groups
+	user created groups
+	user joined groups
+	group join request sent groups
+UserChatContainerComponent
+	user chat with friend
+GroupChatContainerComponent
+	chat inside group
+

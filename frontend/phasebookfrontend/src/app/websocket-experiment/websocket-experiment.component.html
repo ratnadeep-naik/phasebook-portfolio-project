@@ -1,0 +1,29 @@
+
+<form [formGroup]="chatForm" (ngSubmit)="chatFormSubmit(chatForm.value)">
+
+<div>from</div>
+    <input type="radio" name="from" value="user1" [formControl]="chatForm.controls['from']" (click)="setFrom('user1')">
+    <label for="html">user 1</label>
+    <input type="radio" name="from" value="user2" [formControl]="chatForm.controls['from']"  (click)="setFrom('user2')">
+    <label for="css">user 2</label>
+    <input type="radio" name="from" value="user3" [formControl]="chatForm.controls['from']"  (click)="setFrom('user3')">
+    <label for="javascript">user 3</label>
+    <!-- <input type="radio" name="from" value="user4" [formControl]="chatForm.controls['from']"  (click)="setFrom('user4')">
+    <label for="javascript">user 4</label> -->
+
+<div >message</div>
+    <input type="text"  [formControl]="chatForm.controls['message']">
+
+<div>to</div>
+    <select name="to" multiple [formControl]="chatForm.controls['to']">
+        <option value="user1">user 1</option>
+        <option value="user2">user 2</option>
+        <option value="user3">user 3</option>
+    </select>
+      <br>
+    <button>submit</button>
+</form>
+
+<br><br><br>
+<div *ngFor="let n of messages">{{n}}</div>
+
